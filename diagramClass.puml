@@ -1,0 +1,91 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+!theme cerulean-outline
+
+class Garage {
+    +id: int
+    +name: string
+    +adresse: string
+    +zip_code: string
+    +city: string
+    +phone: string
+}
+
+class Cars {
+    +id: int
+    +brand: string
+    +model: string
+    +features: string
+    +price: number
+    +kilometre: int
+    +year: int
+    +created_at: datetime
+}
+
+class Images {
+    +id: int
+    +car_id: int
+    +image_name: string
+    +updated_at: datetime
+    +created_at: datetime
+}
+
+class Users {
+    +id: int
+    +lastname: string
+    +firstname: string
+    +email: string
+    +role: string
+    +password: string
+}
+
+class Messages {
+    +id: int
+    +lastname: string
+    +firstname: string
+    +email: string
+    +phone: string
+    +subject: string
+    +message: string
+    +createdAt: date
+}
+
+class Opinions {
+    +id: int
+    +user_id: int
+    +name: string
+    +comment: string
+    +notes: int
+    +is_approved: boolean
+    +garage_id: int
+    +createdAt: datetime
+}
+
+class Services {
+    +id: int
+    +name: string
+    +content: string
+    +is_active: boolean
+    +price: double
+    +category: string
+}
+
+class OpeningHours {
+    +id: int
+    +day: string
+    +amOpenHours: string
+    +amCloseHours: string
+    +pmOpenHours: string
+    +pmCloseHours: string
+}
+
+Garage "1" -- "0..*" Cars
+Cars "1" -- "0..*" Images
+Messages "*" - "1" Cars
+Users "1" - "0..*" Opinions
+Users "1" -- "*" Messages
+Opinions "1" - "0..1" Garage
+Garage "1" - "*" Services
+Garage "1" -- "*" OpeningHours
+
+@enduml

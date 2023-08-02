@@ -1,0 +1,31 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+!theme cerulean-outline
+
+title "Processus nouveau visiteur"
+
+actor Visitor as "Visiteur"
+participant Site as "Site Web"
+participant Occasions as "Liste des Véhicules"
+participant Filter as "Filtres"
+participant Details as "Détails du Véhicule"
+participant Contact as "Formulaire de Contact"
+participant Garage as "Garage"
+
+Visitor -> Site: Arrive sur la page d'accueil
+Site -> Occasions: Consulte liste des véhicules d'occasion
+Visitor -> Filter: Applique des filtres
+Filter --> Occasions: Applique les critères de filtre
+Visitor -> Occasions: Sélectionne un véhicule
+
+Site -> Details: Affiche les détails du véhicule
+Visitor -> Details: Examine les détails
+Visitor -> Contact: Remplit le formulaire de contact
+Contact -> Garage: Envoie les détails du formulaire
+
+Garage --> Contact: Traite la demande
+Garage --> Visitor: Contacte pour plus d'informations
+
+@enduml
+
+@enduml
