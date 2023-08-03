@@ -1,0 +1,54 @@
+@startuml
+
+skinparam backgroundColor #FFFFFF
+!theme cerulean-outline
+
+left to right direction
+actor Visiteur as V
+package Staff {
+  actor employés as E
+  actor V.Parrot as A
+}
+
+package "Garage V. Parrot"{
+  usecase "créé le compte employé" as UC1
+  usecase "Se connecte" as UC2
+  usecase "modifie les informations de services" as UC3
+  usecase "affiche les services" as UC8
+  usecase "gére les horaires d'ouvertures du garage" as UC4
+  usecase "consulte les horaires" as UC9
+  usecase "ajoute de nouvelles voitures" as UC5
+  usecase "consulte la liste des voitures d'occasion" as UC6
+  usecase "utilise les filtres" as UC7
+  usecase "contacte le garage" as UC10
+  usecase "gére les informations de contact" as UC11
+  usecase "ajoute un témoignage" as UC12
+  usecase "modère les témoignages" as UC13
+}
+
+A --> UC1
+A --> UC3
+A --> UC4
+E --> UC5
+V --> UC6
+V --> UC8
+V --> UC9
+V --> UC10
+A --> UC11
+E --> UC12
+E -->UC13
+V --> UC12
+
+
+UC1 ..> UC2 : <<include>>
+UC3 ..> UC2 : <<include>>
+UC4 ..> UC2 : <<include>>
+UC5 ..> UC2 : <<include>>
+UC11 ..> UC2 : <<include>>
+UC13 ..> UC2 : <<include>>
+UC7 .> UC6 : <<extend>>
+UC10 ..> UC6 : <<extend>>
+UC12 .> UC13 : <<extend>>
+
+@enduml
+
