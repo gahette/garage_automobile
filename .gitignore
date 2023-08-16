@@ -9,8 +9,10 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-# Liés à l'IDE
+###> Liés à l'IDE ###
 .idea/
+###< Liés à l'IDE ###
+
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
@@ -25,3 +27,8 @@
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
+
+###> Images ###
+public/images/*
+!public/images/.gitignore
+###< Images ###

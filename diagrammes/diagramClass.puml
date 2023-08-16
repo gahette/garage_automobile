@@ -15,17 +15,17 @@ class Cars {
     +id: int
     +brand: string
     +model: string
-    +features: string
-    +price: number
-    +kilometre: int
+    +content: text
+    +price: integer
+    +kilometer: int
     +year: int
     +created_at: datetime
+    +updated_at: datetime
 }
 
 class Images {
     +id: int
-    +car_id: int
-    +image_name: string
+    +name: string
     +updated_at: datetime
     +created_at: datetime
 }
@@ -46,27 +46,25 @@ class Messages {
     +email: string
     +phone: string
     +subject: string
-    +message: string
-    +createdAt: date
+    +content: text
+    +createdAt: datetime
 }
 
 class Opinions {
     +id: int
-    +user_id: int
     +name: string
-    +comment: string
+    +content: text
     +notes: int
     +is_approved: boolean
-    +garage_id: int
     +createdAt: datetime
 }
 
 class Services {
     +id: int
     +name: string
-    +content: string
-    +is_active: boolean
-    +price: double
+    +content: text
+    +is_approved: boolean
+    +price: integer
     +category: string
 }
 
@@ -84,7 +82,7 @@ Cars "1" -- "0..*" Images
 Messages "*" - "1" Cars
 Users "1" - "0..*" Opinions
 Users "1" -- "*" Messages
-Opinions "1" - "0..1" Garage
+'Opinions "1" - "0..1" Garage
 Garage "1" - "*" Services
 Garage "1" -- "*" OpeningHours
 
