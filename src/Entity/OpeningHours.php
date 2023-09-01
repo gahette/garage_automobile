@@ -2,31 +2,50 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasIdTrait;
 use App\Repository\OpeningHoursRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OpeningHoursRepository::class)]
+#[ApiResource]
+#[get]
+#[Patch]
+#[Delete]
+#[GetCollection]
+#[Post]
 class OpeningHours
 {
     use HasIdTrait;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get'])]
     private ?string $day = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get'])]
     private ?string $amOpenHours = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get'])]
     private ?string $amCloseHours = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get'])]
     private ?string $pmOpenHours = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get'])]
     private ?string $pmCloseHours = null;
 
     #[ORM\ManyToOne(inversedBy: 'hasOpeningHours')]
+    #[Groups(['get'])]
     private ?Garage $garage = null;
 
     public function getDay(): ?string

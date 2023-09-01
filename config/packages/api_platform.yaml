@@ -1,0 +1,12 @@
+api_platform:
+  title: 'API Garage Parrot'
+  description: 'Gestion garage de V. Parrot'
+  version: '0.0.1'
+  show_webby: true
+  swagger:
+    versions: [ 3 ]
+  openapi:
+    contact:
+        name: Gahette
+        url: https://github.com/gahette/garage_automobile.git
+        email: gahette@icloud.com

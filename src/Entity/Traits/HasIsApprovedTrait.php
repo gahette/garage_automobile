@@ -3,10 +3,12 @@
 namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 trait HasIsApprovedTrait
 {
     #[ORM\Column]
+    #[Groups(['get'])]
     private ?bool $is_approved = null;
 
     public function isIsApproved(): ?bool

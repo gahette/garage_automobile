@@ -2,39 +2,58 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasContentTrait;
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasPriceTrait;
+use App\Entity\Traits\HasTimestampTrait;
 use App\Repository\CarsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CarsRepository::class)]
+#[ApiResource]
+#[Get]
+#[Patch]
+#[Delete]
+#[GetCollection]
+#[Post]
 class Cars
 {
     use HasIdTrait;
     use HasContentTrait;
     use HasPriceTrait;
-    use TimestampableEntity;
+    use HasTimestampTrait;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get'])]
     private ?string $brand = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get'])]
     private ?string $model = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['get'])]
     private ?int $kilometer = null;
 
     #[ORM\Column]
+    #[Groups(['get'])]
     private ?int $year = null;
 
     #[ORM\OneToMany(mappedBy: 'car', targetEntity: Images::class, orphanRemoval: true)]
+    #[Groups(['get'])]
     private Collection $images;
 
     #[ORM\ManyToOne(inversedBy: 'hasCars')]
+    #[Groups(['get'])]
     private ?Garage $garage = null;
 
     public function __construct()

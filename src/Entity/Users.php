@@ -2,6 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasEmailTrait;
 use App\Entity\Traits\HasFirstnameTrait;
 use App\Entity\Traits\HasIdTrait;
@@ -14,9 +20,14 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
+#[ApiResource]
+#[get]
+#[Patch]
+#[Delete]
+#[GetCollection]
+#[Post]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
     use HasIdTrait;
     use HasLastnameTrait;
     use HasFirstnameTrait;
@@ -50,7 +61,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     /**

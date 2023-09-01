@@ -2,6 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasNameTrait;
 use App\Entity\Traits\HasPhoneTrait;
@@ -9,8 +15,15 @@ use App\Repository\GarageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GarageRepository::class)]
+#[ApiResource]
+#[get(normalizationContext: ['groups' => ['get']])]
+#[Patch]
+#[Delete]
+#[GetCollection]
+#[Post]
 class Garage
 {
     use HasIdTrait;
@@ -18,21 +31,27 @@ class Garage
     use HasPhoneTrait;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get'])]
     private ?string $address = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get'])]
     private ?string $zip_code = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['get'])]
     private ?string $city = null;
 
     #[ORM\OneToMany(mappedBy: 'garage', targetEntity: Services::class)]
+    #[Groups(['get'])]
     private Collection $hasServices;
 
     #[ORM\OneToMany(mappedBy: 'garage', targetEntity: OpeningHours::class)]
+    #[Groups(['get'])]
     private Collection $hasOpeningHours;
 
     #[ORM\OneToMany(mappedBy: 'garage', targetEntity: Cars::class)]
+    #[Groups(['get'])]
     private Collection $hasCars;
 
     public function __construct()
