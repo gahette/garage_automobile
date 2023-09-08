@@ -48,6 +48,9 @@ class Cars
     #[Groups(['get'])]
     private ?int $year = null;
 
+    /**
+     * @var Collection<int, Images>
+     */
     #[ORM\OneToMany(mappedBy: 'car', targetEntity: Images::class, orphanRemoval: true)]
     #[Groups(['get'])]
     private Collection $images;

@@ -45,9 +45,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    /**
+     * @var Collection<int, Opinions>
+     */
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Opinions::class)]
     private Collection $hasOpinions;
 
+    /**
+     * @var Collection<int, Messages>
+     */
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Messages::class)]
     private Collection $hasMessages;
 

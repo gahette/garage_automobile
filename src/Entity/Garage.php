@@ -42,14 +42,23 @@ class Garage
     #[Groups(['get'])]
     private ?string $city = null;
 
+    /**
+     * @var Collection<int, Services>
+     */
     #[ORM\OneToMany(mappedBy: 'garage', targetEntity: Services::class)]
     #[Groups(['get'])]
     private Collection $hasServices;
 
+    /**
+     * @var Collection<int, OpeningHours>
+     */
     #[ORM\OneToMany(mappedBy: 'garage', targetEntity: OpeningHours::class)]
     #[Groups(['get'])]
     private Collection $hasOpeningHours;
 
+    /**
+     * @var Collection<int, Cars>
+     */
     #[ORM\OneToMany(mappedBy: 'garage', targetEntity: Cars::class)]
     #[Groups(['get'])]
     private Collection $hasCars;
