@@ -33,6 +33,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     use HasFirstnameTrait;
     use HasEmailTrait;
 
+    /**
+     * @var array<mixed>
+     */
     #[ORM\Column]
     private array $roles = [];
 
@@ -65,6 +68,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return array<mixed>
+     *
      * @see UserInterface
      */
     public function getRoles(): array
@@ -76,6 +81,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array<mixed> $roles
+     *
+     * @return $this
+     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -86,7 +96,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }

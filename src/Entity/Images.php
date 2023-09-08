@@ -6,7 +6,6 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasNameTrait;
@@ -19,6 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
+#[Vich\Uploadable]
 #[ApiResource]
 #[get]
 #[Delete]
@@ -30,20 +30,21 @@ class Images
     use HasNameTrait;
     use HasTimestampTrait;
 
+    #[ORM\Column(nullable: true)]
+    #[Groups(['get'])]
+    private ?string $imageName = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Groups(['get'])]
+    private ?int $imageSize = null;
+
     #[ORM\ManyToOne(inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Cars $car = null;
 
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName', size: 'imageSize')]
-    #[Groups(['get'])]
     private ?File $file = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?string $imageName = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $imageSize = null;
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -52,7 +53,7 @@ class Images
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
      */
-    public function setFile(File|UploadedFile $file = null): void
+    public function setFile(File|UploadedFile|null $file): Images
     {
         $this->file = $file;
 
@@ -61,6 +62,8 @@ class Images
             // otherwise the event listeners won't be called and the file is lost
             $this->setUpdatedAt(new \DateTime());
         }
+
+        return $this;
     }
 
     public function getFile(): ?File
