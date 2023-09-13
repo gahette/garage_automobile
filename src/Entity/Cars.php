@@ -59,9 +59,13 @@ class Cars
     #[Groups(['get'])]
     private ?Garage $garage = null;
 
+    #[ORM\OneToMany(mappedBy: 'cars', targetEntity: Messages::class, orphanRemoval: true)]
+    private Collection $message;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->message = new ArrayCollection();
     }
 
     public function getBrand(): ?string
@@ -150,6 +154,36 @@ class Cars
     public function setGarage(?Garage $garage): static
     {
         $this->garage = $garage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Messages>
+     */
+    public function getMessage(): Collection
+    {
+        return $this->message;
+    }
+
+    public function addMessage(Messages $message): static
+    {
+        if (!$this->message->contains($message)) {
+            $this->message->add($message);
+            $message->setCars($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Messages $message): static
+    {
+        if ($this->message->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getCars() === $this) {
+                $message->setCars(null);
+            }
+        }
 
         return $this;
     }

@@ -8,7 +8,6 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasIdTrait;
-use App\Entity\Traits\HasNameTrait;
 use App\Entity\Traits\HasTimestampTrait;
 use App\Repository\ImagesRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,15 +26,14 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Images
 {
     use HasIdTrait;
-    use HasNameTrait;
     use HasTimestampTrait;
 
-    #[ORM\Column(nullable: true)]
-    #[Groups(['get'])]
+    //    #[ORM\Column(nullable: true)]
+    //    #[Groups(['get'])]
     private ?string $imageName = null;
 
-    #[ORM\Column(nullable: true)]
-    #[Groups(['get'])]
+    //    #[ORM\Column(nullable: true)]
+    //    #[Groups(['get'])]
     private ?int $imageSize = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
@@ -43,6 +41,7 @@ class Images
     private ?Cars $car = null;
 
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
+    #[ORM\Column(nullable: true)]
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $file = null;
 

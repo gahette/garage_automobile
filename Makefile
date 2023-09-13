@@ -7,6 +7,7 @@ update: ## Met à jour le projet avec les informations de composer.lock (ne les 
 	composer install
 
 upgrade: ## Met à jour le projet avec les informations de composer.json (met à jour le composer.lock)
+	composer update
 
 # ================================== #
 # Manipulation de la base de données #
@@ -20,13 +21,23 @@ migration: ## Génère une migration avec les changements des entités
 migrate: ## Exécute les migrations
 	php bin/console doctrine:migrations:migrate
 
-db.recreate: db.drop db.create migrate
+migrations.list: ## Liste des migrations
+	php bin/console doctrine:migrations:list
+
+db.recreate: ## Commande (d'urgence) pour recreer la BdD depuis 0 
+	db.drop db.create migrate fixtures
 
 db.drop:
 	php bin/console doctrine:database:drop -f
 
 db.create:
 	php bin/console doctrine:database:create
+
+fixtures:
+	php bin/console doctrine:fixtures:load
+
+admin.crud:
+	php bin/console make:admin:crud
 
 # ============= #
 # Vérifications #

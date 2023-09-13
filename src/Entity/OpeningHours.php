@@ -24,23 +24,23 @@ class OpeningHours
 {
     use HasIdTrait;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['get'])]
     private ?string $day = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['get'])]
     private ?string $amOpenHours = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['get'])]
     private ?string $amCloseHours = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['get'])]
     private ?string $pmOpenHours = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['get'])]
     private ?string $pmCloseHours = null;
 

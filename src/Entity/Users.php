@@ -16,10 +16,13 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+#[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
+#[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[ApiResource]
 #[get]
 #[Patch]
@@ -38,6 +41,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private array $roles = [];
+
+    private ?string $plainPassword = null;
 
     /**
      * @var string|null The hashed password
@@ -97,6 +102,16 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roles = $roles;
 
         return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 
     /**
