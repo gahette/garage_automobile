@@ -28,37 +28,25 @@ class Images
     use HasIdTrait;
     use HasTimestampTrait;
 
-    //    #[ORM\Column(nullable: true)]
-    //    #[Groups(['get'])]
-    private ?string $imageName = null;
+    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'path', size: 'size')]
+    private ?File $file = null;
+    #[ORM\Column(nullable: true)]
+    #[Groups(['get'])]
+    private ?string $path = null;
 
-    //    #[ORM\Column(nullable: true)]
-    //    #[Groups(['get'])]
-    private ?int $imageSize = null;
+    #[ORM\Column(nullable: true)]
+    #[Groups(['get'])]
+    private ?int $size = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Cars $car = null;
 
-    // NOTE: This is not a mapped field of entity metadata, just a simple property.
-    #[ORM\Column(nullable: true)]
-    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName', size: 'imageSize')]
-    private ?File $file = null;
-
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     */
     public function setFile(File|UploadedFile|null $file): Images
     {
         $this->file = $file;
 
         if (null !== $file) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
             $this->setUpdatedAt(new \DateTime());
         }
 
@@ -70,24 +58,28 @@ class Images
         return $this->file;
     }
 
-    public function setImageName(?string $imageName): void
+    public function setPath(?string $path): self
     {
-        $this->imageName = $imageName;
+        $this->path = $path;
+
+        return $this;
     }
 
-    public function getImageName(): ?string
+    public function getPath(): ?string
     {
-        return $this->imageName;
+        return $this->path;
     }
 
-    public function setImageSize(?int $imageSize): void
+    public function setSize(?int $size): self
     {
-        $this->imageSize = $imageSize;
+        $this->size = $size;
+
+        return $this;
     }
 
-    public function getImageSize(): ?int
+    public function getSize(): ?int
     {
-        return $this->imageSize;
+        return $this->size;
     }
 
     public function getCar(): ?Cars
@@ -95,10 +87,15 @@ class Images
         return $this->car;
     }
 
-    public function setCar(?Cars $car): static
+    public function setCar(?Cars $car): self
     {
         $this->car = $car;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->getPath();
     }
 }

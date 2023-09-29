@@ -4,11 +4,9 @@ namespace App\DataFixtures;
 
 use App\Entity\Users;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UsersFixtures extends AbstractFixtures
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -28,7 +26,6 @@ class UsersFixtures extends AbstractFixtures
                 ->setLastname($this->faker->lastName())
                 ->setFirstname($this->faker->firstName())
                 ->setPlainPassword('password');
-
 
             $manager->persist($user);
         }

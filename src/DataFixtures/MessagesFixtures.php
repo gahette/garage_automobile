@@ -38,7 +38,7 @@ class MessagesFixtures extends AbstractFixtures implements DependentFixtureInter
                         ->setFirstname(firstname: $this->faker->firstName())
                         ->setEmail(email: $this->faker->email())
                         ->setPhone(phone: $this->faker->phoneNumber())
-                        ->setContent(content: $this->faker->Text(10))
+                        ->setContent(content: $this->faker->realText(10))
                         ->setUpdatedAt(updatedAt: $this->faker->dateTime());
                     $manager->persist($messages);
                 }

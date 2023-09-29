@@ -62,7 +62,7 @@ class OpeningHours
 
     public function getAmOpenHours(): ?string
     {
-        return $this->amOpenHours;
+        return null !== $this->amOpenHours ? $this->amOpenHours : '';
     }
 
     public function setAmOpenHours(string $amOpenHours): static
@@ -74,7 +74,7 @@ class OpeningHours
 
     public function getAmCloseHours(): ?string
     {
-        return $this->amCloseHours;
+        return null !== $this->amCloseHours ? $this->amCloseHours : '';
     }
 
     public function setAmCloseHours(string $amCloseHours): static
@@ -86,7 +86,8 @@ class OpeningHours
 
     public function getPmOpenHours(): ?string
     {
-        return $this->pmOpenHours;
+        //        return $this->pmOpenHours;
+        return null !== $this->pmOpenHours ? $this->pmOpenHours : '';
     }
 
     public function setPmOpenHours(string $pmOpenHours): static
@@ -98,7 +99,7 @@ class OpeningHours
 
     public function getPmCloseHours(): ?string
     {
-        return $this->pmCloseHours;
+        return null !== $this->pmCloseHours ? $this->pmCloseHours : '';
     }
 
     public function setPmCloseHours(string $pmCloseHours): static

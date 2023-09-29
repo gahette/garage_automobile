@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasContentTrait;
 use App\Entity\Traits\HasIdTrait;
+use App\Entity\Traits\HasNameTrait;
 use App\Entity\Traits\HasPriceTrait;
 use App\Entity\Traits\HasTimestampTrait;
 use App\Repository\CarsRepository;
@@ -28,6 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Cars
 {
     use HasIdTrait;
+    use HasNameTrait;
     use HasContentTrait;
     use HasPriceTrait;
     use HasTimestampTrait;
@@ -46,12 +48,12 @@ class Cars
 
     #[ORM\Column]
     #[Groups(['get'])]
-    private ?int $year = null;
+    private ?string $year = null;
 
     /**
      * @var Collection<int, Images>
      */
-    #[ORM\OneToMany(mappedBy: 'car', targetEntity: Images::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'car', targetEntity: Images::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[Groups(['get'])]
     private Collection $images;
 
@@ -59,7 +61,10 @@ class Cars
     #[Groups(['get'])]
     private ?Garage $garage = null;
 
-    #[ORM\OneToMany(mappedBy: 'cars', targetEntity: Messages::class, orphanRemoval: true)]
+    /**
+     * @var Collection<int, Messages>
+     */
+    #[ORM\OneToMany(mappedBy: 'cars', targetEntity: Messages::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $message;
 
     public function __construct()
@@ -104,12 +109,12 @@ class Cars
         return $this;
     }
 
-    public function getYear(): ?int
+    public function getYear(): ?string
     {
         return $this->year;
     }
 
-    public function setYear(int $year): static
+    public function setYear(string $year): static
     {
         $this->year = $year;
 
@@ -186,5 +191,10 @@ class Cars
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName().' ('.$this->getId().')';
     }
 }

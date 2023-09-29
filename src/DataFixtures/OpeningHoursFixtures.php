@@ -26,7 +26,6 @@ class OpeningHoursFixtures extends AbstractFixtures implements DependentFixtureI
             $openinghours6 = new OpeningHours();
             $openinghours7 = new OpeningHours();
 
-
             $openinghours1
                 ->setGarage(garage: $garage)
                 ->setDay('lun.')

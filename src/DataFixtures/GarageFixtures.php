@@ -6,15 +6,14 @@ use App\Entity\Garage;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-/**
- * @property $id
- */
 class GarageFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
         $garage = new Garage();
-        $garage->setName('Garage V.Parrot')
+        $garage
+            ->setName('Garage V.Parrot')
+            ->setSlug(slug: 'vparrot')
             ->setAddress('rue de la déchèterie')
             ->setZipCode('75100')
             ->setCity('Paris')

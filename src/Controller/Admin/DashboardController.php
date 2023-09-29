@@ -2,7 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Cars;
 use App\Entity\Garage;
+use App\Entity\Images;
+use App\Entity\Messages;
+use App\Entity\OpeningHours;
+use App\Entity\Opinions;
+use App\Entity\Services;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -37,21 +43,29 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-          ->renderContentMaximized()
-          ->setTitle('Garage Automobile')
-        ;
+            ->renderContentMaximized()
+            ->setTitle('Garage Automobile');
     }
 
     public function configureCrud(): Crud
     {
         return parent::configureCrud()
-          ->renderContentMaximized()
-        ;
+            ->renderContentMaximized()
+            ->showEntityActionsInlined()
+            ->setDefaultSort([
+                'id' => 'DESC',
+            ]);
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Garage', 'fa fa-solid fa-warehouse', Garage::class);
+        yield MenuItem::linkToCrud('Garages', 'fa fa-solid fa-warehouse', Garage::class);
+        yield MenuItem::linkToCrud('Services', 'fa fa-solid fa-laptop', Services::class);
+        yield MenuItem::linkToCrud('Horaires D\'ouverture', 'fa fa-solid fa-clock', OpeningHours::class);
+        yield MenuItem::linkToCrud('Avis', 'fa fa-solid fa-gavel', Opinions::class);
+        yield MenuItem::linkToCrud('Voitures d\'occasion', 'fa fa-solid fa-car', Cars::class);
+        yield MenuItem::linkToCrud('Messages', 'fa fa-solid fa-comment', Messages::class);
+        yield MenuItem::linkToCrud('Images', 'fa fa-solid fa-photo', Images::class);
     }
 }

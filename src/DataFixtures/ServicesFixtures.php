@@ -9,7 +9,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class ServicesFixtures extends AbstractFixtures implements DependentFixtureInterface
 {
-
     public function __construct(protected GarageRepository $garageRepository)
     {
         parent::__construct();
@@ -25,9 +24,10 @@ class ServicesFixtures extends AbstractFixtures implements DependentFixtureInter
                     ->setGarage(garage: $garage)
                     ->setCategory(category: $this->faker->word())
                     ->setName(name: $this->faker->name())
-                    ->setContent(content: $this->faker->Text(10))
+                    ->setSlug(slug: $this->faker->slug)
+                    ->setContent(content: $this->faker->realText(10))
                     ->setIsApproved(is_approved: $this->faker->boolean(70))
-                    ->setPrice(price: $this->faker->randomNumber(3, false));
+                    ->setPrice(price: $this->faker->randomNumber(3));
                 $manager->persist($services);
             }
         }

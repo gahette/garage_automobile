@@ -4,6 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Garage;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class GarageCrudController extends AbstractCrudController
 {
@@ -12,14 +16,15 @@ class GarageCrudController extends AbstractCrudController
         return Garage::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            IdField::new('id')->hideOnForm(),
+            TextField::new('name')->setLabel('Nom'),
+            TextField::new('Address')->setLabel('Adresse'),
+            IntegerField::new('zipCode')->setLabel('Code postal'),
+            TextField::new('city')->setLabel('Ville'),
+            TelephoneField::new('phone')->setLabel('Téléphone'),
         ];
     }
-    */
 }

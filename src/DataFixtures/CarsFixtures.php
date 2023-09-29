@@ -28,6 +28,8 @@ class CarsFixtures extends AbstractFixtures implements DependentFixtureInterface
                     ->setYear(year: $this->faker->year())
                     ->setContent(content: $this->faker->realText(10))
                     ->setPrice(price: $this->faker->randomNumber(5, false))
+                    ->setName(name: $this->faker->name)
+                    ->setSlug(slug: $this->faker->slug)
                     ->setUpdatedAt(updatedAt: $this->faker->dateTime());
                 $manager->persist($cars);
             }

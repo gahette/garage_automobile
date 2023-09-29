@@ -10,7 +10,6 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasContentTrait;
 use App\Entity\Traits\HasIdTrait;
-use App\Entity\Traits\HasIsApprovedTrait;
 use App\Entity\Traits\HasNameTrait;
 use App\Entity\Traits\HasTimestampTrait;
 use App\Repository\OpinionsRepository;
@@ -29,8 +28,13 @@ class Opinions
     use HasIdTrait;
     use HasNameTrait;
     use HasContentTrait;
-    use HasIsApprovedTrait;
+
+    //    use HasIsApprovedTrait;
     use HasTimestampTrait;
+
+    #[ORM\Column]
+    #[Groups(['get'])]
+    private ?bool $is_approved = null;
 
     #[ORM\Column]
     #[Groups(['get'])]
@@ -39,6 +43,19 @@ class Opinions
     #[ORM\ManyToOne(inversedBy: 'hasOpinions')]
     #[Groups(['get'])]
     private ?Users $users = null;
+
+    public function IsIsApproved(): ?bool
+    {
+        //        return $this->is_approved;
+        return (null === $this->users) ? false : $this->is_approved;
+    }
+
+    public function setIsApproved(bool $is_approved): static
+    {
+        $this->is_approved = $is_approved;
+
+        return $this;
+    }
 
     public function getMark(): ?int
     {

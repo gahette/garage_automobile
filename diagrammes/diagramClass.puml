@@ -5,6 +5,7 @@ skinparam backgroundColor #FFFFFF
 class Garage {
     +id: int
     +name: string
+    +slug: string
     +adresse: string
     +zip_code: string
     +city: string
@@ -13,10 +14,12 @@ class Garage {
 
 class Cars {
     +id: int
+    +name: string
+    +slug: string
     +brand: string
     +model: string
     +content: text
-    +price: integer
+    +price: int
     +kilometer: int
     +year: int
     +created_at: datetime
@@ -25,7 +28,8 @@ class Cars {
 
 class Images {
     +id: int
-    +name: string
+    +path: string
+    +size: int
     +updated_at: datetime
     +created_at: datetime
 }
@@ -53,18 +57,21 @@ class Messages {
 class Opinions {
     +id: int
     +name: string
+    +slug: string
     +content: text
     +notes: int
-    +is_approved: boolean
+    +is_approved: bool
     +createdAt: datetime
+    +updatedAt: datetime
 }
 
 class Services {
     +id: int
     +name: string
+    +slug: string
     +content: text
-    +is_approved: boolean
-    +price: integer
+    +is_approved: bool
+    +price: int
     +category: string
 }
 
