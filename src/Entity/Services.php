@@ -20,10 +20,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: ServicesRepository::class)]
 #[ApiResource]
 #[get]
-#[Patch]
-#[Delete]
+#[Patch(security: "is_granted('ROLE_ADMIN')")]
+#[Delete(security: "is_granted('ROLE_ADMIN')")]
 #[GetCollection]
-#[Post]
+#[Post(security: "is_granted('ROLE_ADMIN')")]
 class Services
 {
     use HasIdTrait;

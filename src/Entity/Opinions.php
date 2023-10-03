@@ -19,8 +19,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: OpinionsRepository::class)]
 #[ApiResource]
 #[get]
-#[Patch]
-#[Delete]
+#[Patch(security: "is_granted('ROLE_EMPLOYEES')")]
+#[Delete(security: "is_granted('ROLE_EMPLOYEES')")]
 #[GetCollection]
 #[Post]
 class Opinions

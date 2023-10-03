@@ -20,9 +20,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Vich\Uploadable]
 #[ApiResource]
 #[get]
-#[Delete]
+#[Delete(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEES')")]
 #[GetCollection]
-#[Post]
+#[Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEES')")]
 class Images
 {
     use HasIdTrait;

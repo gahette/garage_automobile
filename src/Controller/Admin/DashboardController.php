@@ -9,6 +9,7 @@ use App\Entity\Messages;
 use App\Entity\OpeningHours;
 use App\Entity\Opinions;
 use App\Entity\Services;
+use App\Entity\Users;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -60,6 +61,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-solid fa-user', Users::class);
         yield MenuItem::linkToCrud('Garages', 'fa fa-solid fa-warehouse', Garage::class);
         yield MenuItem::linkToCrud('Services', 'fa fa-solid fa-laptop', Services::class);
         yield MenuItem::linkToCrud('Horaires D\'ouverture', 'fa fa-solid fa-clock', OpeningHours::class);

@@ -20,10 +20,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: GarageRepository::class)]
 #[ApiResource]
 #[get(normalizationContext: ['groups' => ['get']])]
-#[Patch]
-#[Delete]
-#[GetCollection]
-#[Post]
+#[Patch(security: "is_granted('ROLE_ADMIN')")]
+#[Delete(security: "is_granted('ROLE_ADMIN')")]
+#[GetCollection(security: "is_granted('ROLE_ADMIN')")]
+#[Post(security: "is_granted('ROLE_ADMIN')")]
 class Garage
 {
     use HasIdTrait;

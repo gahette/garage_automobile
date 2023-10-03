@@ -22,10 +22,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CarsRepository::class)]
 #[ApiResource]
 #[Get]
-#[Patch]
-#[Delete]
+#[Patch(security: "is_granted('ROLE_Admin') or is_granted('ROLE_EMPLOYEES')")]
+#[Delete(security: "is_granted('ROLE_Admin') or is_granted('ROLE_EMPLOYEES')")]
 #[GetCollection]
-#[Post]
+#[Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEES')")]
 class Cars
 {
     use HasIdTrait;
@@ -66,6 +66,10 @@ class Cars
      */
     #[ORM\OneToMany(mappedBy: 'cars', targetEntity: Messages::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $message;
+
+    #[ORM\ManyToOne(inversedBy: 'cars')]
+    private ?Users $user = null;
+
 
     public function __construct()
     {
@@ -197,4 +201,17 @@ class Cars
     {
         return $this->getName().' ('.$this->getId().')';
     }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 }

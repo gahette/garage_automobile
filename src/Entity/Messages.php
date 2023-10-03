@@ -6,7 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Patch;
+// use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasContentTrait;
 use App\Entity\Traits\HasEmailTrait;
@@ -22,8 +22,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: MessagesRepository::class)]
 #[ApiResource]
 #[get]
-#[Patch]
-#[Delete]
+// #[Patch]
+#[Delete(security: "is_granted('ROLE_EMPLOYEES')")]
 #[GetCollection]
 #[Post]
 class Messages

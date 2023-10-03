@@ -33,3 +33,7 @@ public/images/*
 !public/images/.gitignore
 !/var/images
 ###< Images ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

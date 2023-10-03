@@ -5,8 +5,12 @@ api_platform:
   show_webby: true
   swagger:
     versions: [ 3 ]
+    api_keys:
+      JWT:
+        name: Authorization
+        type: header
   openapi:
     contact:
-        name: Gahette
-        url: https://github.com/gahette/garage_automobile.git
-        email: gahette@icloud.com
+      name: Gahette
+      url: https://github.com/gahette/garage_automobile.git
+      email: gahette@icloud.com

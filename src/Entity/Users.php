@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+// use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -16,20 +17,22 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
-#[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[ApiResource]
-#[get]
-#[Patch]
-#[Delete]
-#[GetCollection]
-#[Post]
-class Users implements UserInterface, PasswordAuthenticatedUserInterface
+#[get(security: "is_granted('ROLE_ADMIN') or object == user")]
+#[Patch(security: "is_granted('ROLE_ADMIN')")]
+#[Delete(security: "is_granted('ROLE_ADMIN')")]
+#[GetCollection(security: "is_granted('ROLE_ADMIN')")]
+#[Post(security: "is_granted('ROLE_ADMIN')")]
+class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUserInterface
 {
     use HasIdTrait;
     use HasLastnameTrait;
@@ -40,8 +43,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      * @var array<mixed>
      */
     #[ORM\Column]
+    #[Groups(['get'])]
     private array $roles = [];
 
+    #[Assert\Length(min: 4)]
     private ?string $plainPassword = null;
 
     /**
@@ -62,10 +67,25 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Messages::class)]
     private Collection $hasMessages;
 
+    /**
+     * @var Collection<int, Cars>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Cars::class, cascade: ['persist', 'remove'])]
+    #[Groups(['User:item:get'])]
+    private Collection $cars;
+
     public function __construct()
     {
         $this->hasOpinions = new ArrayCollection();
         $this->hasMessages = new ArrayCollection();
+        $this->cars = new ArrayCollection();
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -135,7 +155,16 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
+    }
+
+    public static function createFromPayload($username, array $payload): self
+    {
+        return (new self())
+            ->setId($username)
+            ->setRoles($payload['roles'])
+            ->setEmail($payload['email'])
+        ;
     }
 
     /**
@@ -192,6 +221,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($hasMessage->getUsers() === $this) {
                 $hasMessage->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cars>
+     */
+    public function getCars(): Collection
+    {
+        return $this->cars;
+    }
+
+    public function addCar(Cars $car): self
+    {
+        if (!$this->cars->contains($car)) {
+            $this->cars->add($car);
+            $car->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCar(Cars $car): self
+    {
+        if ($this->cars->removeElement($car)) {
+            // set the owning side to null (unless already changed)
+            if ($car->getUser() === $this) {
+                $car->setUser(null);
             }
         }
 

@@ -16,10 +16,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: OpeningHoursRepository::class)]
 #[ApiResource]
 #[get]
-#[Patch]
-#[Delete]
+#[Patch(security: "is_granted('ROLE_ADMIN')")]
+#[Delete(security: "is_granted('ROLE_ADMIN')")]
 #[GetCollection]
-#[Post]
+#[Post(security: "is_granted('ROLE_ADMIN')")]
 class OpeningHours
 {
     use HasIdTrait;
