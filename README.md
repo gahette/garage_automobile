@@ -30,3 +30,8 @@
 
 ![Diagram Image Link](diagrammes/diagramClass.png)
 
+# E. Maquette du Desktop
+
+![Maquette Image Link](maquettes/garageParrot-Desktop.png)
+
+
