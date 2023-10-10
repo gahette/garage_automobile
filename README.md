@@ -32,6 +32,6 @@
 
 # E. Maquette du Desktop
 
-![Maquette Image Link](maquettes/garageParrot-Desktop.png)
+![Maquette Image Link](maquettes/garageVParrot-Desktop.png)
 
 
