@@ -34,4 +34,6 @@
 
 ![Maquette Image Link](maquettes/garageVParrot-Desktop.png)
 
+# D. Maquette du Mobile
 
+![Maquette Image Link](maquettes/garageVParrot-Mobile.png)
