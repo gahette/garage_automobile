@@ -3,6 +3,7 @@ import {useCallback, useState} from "react";
 export function useServicesFetch(url) {
     const [loading, setLoading] = useState(false)
     const [items, setItems] = useState([])
+    const [count, setCount] = useState(0)
     const load = useCallback(async function () {
         setLoading(true)
         const response = await fetch(url, {
@@ -13,6 +14,7 @@ export function useServicesFetch(url) {
         const responseData = await response.json()
         if (response.ok) {
             setItems(responseData['hydra:member'])
+            setCount(responseData['hydra:totalItems'])
         } else {
             console.error(responseData)
         }
@@ -21,6 +23,7 @@ export function useServicesFetch(url) {
     return{
         items,
         load,
+        count,
         loading,
     }
 }
