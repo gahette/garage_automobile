@@ -10,7 +10,7 @@ const navLinks = [
     },
     {
         title: 'Services',
-        id: '/service',
+        id: '/services',
     },
     {
         title: 'Vente de véhicules d\'occasion',

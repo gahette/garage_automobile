@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[get(normalizationContext: ['groups' => ['get']])]
 #[Patch(security: "is_granted('ROLE_ADMIN')")]
 #[Delete(security: "is_granted('ROLE_ADMIN')")]
-#[GetCollection(security: "is_granted('ROLE_ADMIN')")]
+#[GetCollection]
 #[Post(security: "is_granted('ROLE_ADMIN')")]
 class Garage
 {
