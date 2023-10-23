@@ -8,14 +8,14 @@
 
 * HTML 5
 * CSS 3
-* <font color='orange'>Bootstrap pas prévu mais ça peut changer</font>
-* JavaScript<font color='red'> avec ou sans React.js ??</font>
+* Tailwindcss
+* React.js
 
 ### Pour le back
 
 * PHP 8.2
 * Symfony 6.3
-* <font color='red'>API Platform ?? à voir</font>
+* API Platform
 * Mysql
 
 # B. Diagramme de cas d'utilisation 

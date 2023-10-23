@@ -38,7 +38,7 @@ function Header() {
 
 
         <nav className="fixed top-0 left-0 right-0 bg-white z-10 opacity-90">
-            <div className="flex flex-wrap items-center justify-between mx-auto p-6 cursor-pointer">
+            <div className="flex flex-wrap items-center justify-between mx-auto p-6 cursor-pointer border border-b-red-600">
                 <Link to={"/"}>
                     <img src={logo} width="120" height="45.76" alt="logo"/>
                 </Link>

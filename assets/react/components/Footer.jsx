@@ -5,23 +5,7 @@ import {usePaginatedFetch} from "./hooks";
 import OpeningHours from "./OpeningHours";
 import Address from "./Address";
 
-// const DayHours = React.memo(({dayHours: {amCloseHours, amOpenHours, day, pmCloseHours, pmOpenHours}}) => {
-//         return <div>
-//             <ul>
-//                 <li>{day} : {amOpenHours} - {amCloseHours} / {pmOpenHours} - {pmCloseHours}</li>
-//             </ul>
-//         </div>
-//     }
-// )
-
 function Footer() {
-    const {items: opening_hours, load, loading, count, hasMore} = usePaginatedFetch
-    ('/api/opening_hours')
-
-    useEffect(() => {
-            load()
-        },
-        [])
 
     return (
         <footer className="footer border border-t-slate-400 bg-slate-600 ">
@@ -37,7 +21,6 @@ function Footer() {
                         Horaires d'ouverture
                     </div>
                     <div className="font-Barlow font-medium text-slate-200">
-                        {/*{opening_hours.map((o, index) => <DayHours key={index} dayHours={o}/>)}*/}
                         <OpeningHours/>
                     </div>
                 </div>
@@ -47,10 +30,6 @@ function Footer() {
                         Contactez-nous
                     </div>
                     <div className="font-Barlow font-medium text-slate-200">
-                        {/*<p>Par téléphone : 0900000000</p>*/}
-                        {/*<p>Par email : garage.vparrot@gmsail.com</p>*/}
-                        {/*<p>Adresse postale : impasse de la presse</p>*/}
-                        {/*<p>31000 Toulouse</p>*/}
                         <Address/>
                     </div>
                 </div>

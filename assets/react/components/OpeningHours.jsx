@@ -12,7 +12,7 @@ const DayHours = React.memo(({dayHours: {amCloseHours, amOpenHours, day, pmClose
 )
 
 function OpeningHours(){
-    const {items: opening_hours, load, loading, count, hasMore} = usePaginatedFetch
+    const {items: opening_hours, load, loading} = usePaginatedFetch
     ('/api/opening_hours')
 
     useEffect(() => {
@@ -21,7 +21,11 @@ function OpeningHours(){
         [])
 
     return (
-        opening_hours.map((o, index) => <DayHours key={index} dayHours={o}/>)
+        <>
+            {loading && 'Chargement...'}
+            {opening_hours.map((o, index) => <DayHours key={index} dayHours={o}/>)}
+
+        </>
     )
 }
 
