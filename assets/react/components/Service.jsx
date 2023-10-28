@@ -1,72 +1,74 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import {usePaginatedFetch} from "./hooks";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faComments} from "@fortawesome/free-regular-svg-icons"
+import tyre from "../serviceImages/tyre-change.jpg";
+import brake from "../serviceImages/brake.jpg";
 
-
-const write = ", écrit par ";
 
 function Service() {
-    const {items: services, load, loading, count, hasMore} = usePaginatedFetch
+    const {items: services, load, loading} = usePaginatedFetch
     ('/api/services')
+
+    const [groupedServices, setGroupedServices] = useState({});
+
+    const categoryImages = {
+        "PNEUMATIQUE & tenue de route": tyre,
+        "FREINAGE & sécurité": brake,
+    }
 
     useEffect(() => {
             load()
         },
         [])
 
+    useEffect(() => {
+        if (services.length > 0) {
+            const grouped = services.reduce((acc, service) => {
+                const category = service["category"];
+                if (!acc[category]) {
+                    acc[category] = [];
+                }
+                if (service.is_approved === true) {
+                    acc[category].push(service.name);
+                }
+                return acc;
+            }, {});
+            setGroupedServices(grouped);
+        }
+    }, [services]);
+
 
     return (
-        <div className=" mt-32">
+        <div className="grid grid-cols-5 gap-6">
             {loading && 'Chargement...'}
-            <Title count={count}/>
-            {services.map(c => <ContentService key={c.id} contentService={c}/>)}
 
-            {hasMore && <button disabled={loading}
-                                onClick={load}> Charger plus de services</button>}
+            {Object.keys(groupedServices).map((category, index) => (
+                <div key={index} className="bg-slate-400 rounded">
 
+                    <img
+                        className=" rounded-t"
+                        // width={241.6}
+                        src={categoryImages[category]}
+                        alt={`Image pour la catégorie ${category}`}/>
+
+
+                    <h2
+                        className="mx-4">
+                        {category}
+                    </h2>
+                    <ul>
+                        {groupedServices[category].map((serviceName, idx) => (
+                            <li
+                                className="mx-4"
+                                key={idx}> {serviceName}</li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
         </div>
     )
 }
 
-function ContentService ({contentService})
-{
-    return <div>
-        <h4>
-            <strong>{contentService.content}</strong>
-            {write}
-            {contentService.name}
-        </h4>
-    </div>
-}
-
-
-function Title({count}) {
-    return <h1>
-        {/*<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"*/}
-        {/*     className="w-6 h-6">*/}
-        {/*    <path strokeLinecap="round" strokeLinejoin="round"*/}
-        {/*          d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/>*/}
-        {/*</svg>*/}
-
-        <FontAwesomeIcon icon={faComments}/>
-        {''} {count} Service{count > 1 ? 's' : ''}
-    </h1>
-}
-
-// class ServicesElement extends HTMLElement {
-//
-//     connectedCallback() {
-//         const root = createRoot(this);
-//         root.render(<Service/>)
-//     }
-//
-//     disconnectedCallback(root) {
-//         unmountComponentAtNode(this)
-//         root.unmount()
-//     }
-// }
-//
-// customElements.define('post-service', ServicesElement)
 
 export default Service;
+
+// TODO : margin card
