@@ -2,7 +2,9 @@ import React, {useEffect, useState} from "react"
 import {usePaginatedFetch} from "./hooks";
 import tyre from "../serviceImages/tyre-change.jpg";
 import brake from "../serviceImages/brake.jpg";
-
+import engine from "../serviceImages/engine.jpg";
+import entretien from "../serviceImages/entretien.jpg";
+import electrique from "../serviceImages/electrique.jpg";
 
 function Service() {
     const {items: services, load, loading} = usePaginatedFetch
@@ -13,6 +15,9 @@ function Service() {
     const categoryImages = {
         "PNEUMATIQUE & tenue de route": tyre,
         "FREINAGE & sécurité": brake,
+        "MÉCANIQUE & diagnostics": engine,
+        "ENTRETION & révision": entretien,
+        "ÉLECTRIQUE & hybride": electrique,
     }
 
     useEffect(() => {
@@ -38,30 +43,29 @@ function Service() {
 
 
     return (
-        <div className="grid grid-cols-5 gap-6">
+        <div className="grid md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-5 grid-cols-1 gap-6">
             {loading && 'Chargement...'}
 
             {Object.keys(groupedServices).map((category, index) => (
-                <div key={index} className="bg-slate-400 rounded">
+                <div key={index} className="bg-white rounded-lg">
 
                     <img
-                        className=" rounded-t"
-                        // width={241.6}
+                        className=" rounded-t-lg"
                         src={categoryImages[category]}
                         alt={`Image pour la catégorie ${category}`}/>
-
-
-                    <h2
-                        className="mx-4">
-                        {category}
-                    </h2>
-                    <ul>
-                        {groupedServices[category].map((serviceName, idx) => (
-                            <li
-                                className="mx-4"
-                                key={idx}> {serviceName}</li>
-                        ))}
-                    </ul>
+                    <div className="m-8">
+                        <h2
+                            className="font-Barlow font-medium text-lg text-slate-400 text-center rounded-b-lg">
+                            {category}
+                        </h2>
+                        <ul className="mt-6">
+                            {groupedServices[category].map((serviceName, idx) => (
+                                <li
+                                    className="font-Barlow font-medium text-base text-slate-600 text-center"
+                                    key={idx}> {serviceName}</li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             ))}
         </div>
