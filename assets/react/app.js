@@ -2,7 +2,6 @@ import React from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Services from "./pages/Services";
 
 
 const App = () => {
@@ -13,7 +12,6 @@ const App = () => {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/accueil" element={<Home/>}/>
-                        <Route path="/services" element={<Services/>}/>
                         <Route path="/sell" element={<About/>}/>
                         {/*<Route path="/contact" element={<Contact/>}/>*/}
                         <Route path="*" element={<Home/>}/>

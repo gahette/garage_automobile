@@ -10,7 +10,7 @@ const navLinks = [
     },
     {
         title: 'Services',
-        id: '/services',
+        id: 'services',
     },
     {
         title: 'Vente de véhicules d\'occasion',
@@ -18,15 +18,15 @@ const navLinks = [
     },
     {
         title: 'Équipe & expertise',
-        id: 'team',
+        id: '/team',
     },
     {
         title: 'Contact',
-        id: 'contact',
+        id: '/contact',
     },
     {
         title: 'Prendre rendez-vous',
-        id: 'rdv',
+        id: '/rdv',
     },
 ]
 
@@ -40,9 +40,9 @@ function Header() {
         <nav className="fixed top-0 left-0 right-0 bg-white z-10 opacity-90">
             <div
                 className="flex flex-wrap items-center justify-between mx-auto p-6 cursor-pointer border border-b-red-600">
-                <Link to={"/"}>
+                <a href="/">
                     <img src={logo} width="120" height="45.76" alt="logo"/>
-                </Link>
+                </a>
                 <div className="mobile-menu block md:hidden">
                     {
                         !toggle ? (
@@ -73,10 +73,16 @@ function Header() {
                                 key={index}
                                 className="block py-3 font-Barlow font-bold text-slate-400 xl:text-base lg:text-sm md:text-xs rounded md:p-0 hover:text-red-600 "
                             >
+                                {nav.title === 'Services' ? (
+                                    <a href={"/#services"} className={"[&.active]:text-red-600 [&.active]:border-b-2 border-red-600 py-1"}>
+                                        {nav.title}
+                                    </a>
+                                ) : (
                                 <NavLink to={nav.id}
                                          className={'[&.active]:text-red-600 [&.active]:border-b-2 border-red-600 py-1'}>
                                     {nav.title}
                                 </NavLink>
+                                    )}
                             </li>
                         ))}
                     </ul>
@@ -89,10 +95,16 @@ function Header() {
                                 <li key={index}
                                     className="block pl-3 pr-4 font-Barlow font-bold text-slate-400 xl:text-base lg:text-sm md:text-xs rounded md:p-0 hover:text-red-600 "
                                 >
+                                    {nav.title === 'Services' ? (
+                                        <a href={"/#services"} className={'[&.active]:text-red-600 [&.active]:border-b-2 border-red-600 py-3'}>
+                                            {nav.title}
+                                        </a>
+                                    ) : (
                                     <NavLink to={nav.id}
                                              className={'[&.active]:text-red-600 [&.active]:border-b-2 border-red-600 py-3'}>
                                         {nav.title}
                                     </NavLink>
+                                        )}
                                 </li>
                             ))
                         }

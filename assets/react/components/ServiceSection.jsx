@@ -2,11 +2,12 @@ import React from "react";
 import Service from "./Service";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
 function ServiceSection() {
     return (
-        <section className="bg-slate-200">
-            <div className="my-20 container mx-auto">
+        <section id={"services"} className="bg-slate-200 ">
+            <div className="my-32 md:pt-32 container mx-auto">
                 <div className="flex flex-col justify-between font-Rajdhani text-center text-slate-600 my-auto gap-16">
                     <h2 className="font-bold xl:text-5xl lg:text-4xl md:text-2xl">Découvrez Nos services</h2>
                     <p className="font-semibold xl:text-5xl lg:text-4xl md:text-2xl mx-30 hidden sm:block">Découvrez

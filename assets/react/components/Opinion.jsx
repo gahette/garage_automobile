@@ -62,3 +62,5 @@ function Opinion() {
 }
 
 export default Opinion;
+
+// TODO : autoplay au chargement de la page ??
