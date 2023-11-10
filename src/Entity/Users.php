@@ -167,35 +167,35 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUse
         ;
     }
 
-    /**
-     * @return Collection<int, Opinions>
-     */
-    public function getHasOpinions(): Collection
-    {
-        return $this->hasOpinions;
-    }
-
-    public function addHasOpinion(Opinions $hasOpinion): static
-    {
-        if (!$this->hasOpinions->contains($hasOpinion)) {
-            $this->hasOpinions->add($hasOpinion);
-            $hasOpinion->setUsers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHasOpinion(Opinions $hasOpinion): static
-    {
-        if ($this->hasOpinions->removeElement($hasOpinion)) {
-            // set the owning side to null (unless already changed)
-            if ($hasOpinion->getUsers() === $this) {
-                $hasOpinion->setUsers(null);
-            }
-        }
-
-        return $this;
-    }
+//    /**
+//     * @return Collection<int, Opinions>
+//     */
+//    public function getHasOpinions(): Collection
+//    {
+//        return $this->hasOpinions;
+//    }
+//
+//    public function addHasOpinion(Opinions $hasOpinion): static
+//    {
+//        if (!$this->hasOpinions->contains($hasOpinion)) {
+//            $this->hasOpinions->add($hasOpinion);
+//            $hasOpinion->setUsers($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeHasOpinion(Opinions $hasOpinion): static
+//    {
+//        if ($this->hasOpinions->removeElement($hasOpinion)) {
+//            // set the owning side to null (unless already changed)
+//            if ($hasOpinion->getUsers() === $this) {
+//                $hasOpinion->setUsers(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection<int, Messages>

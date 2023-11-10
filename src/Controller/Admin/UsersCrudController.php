@@ -33,10 +33,10 @@ class UsersCrudController extends AbstractCrudController
             ->setRequired(isRequired: false)
             ->allowMultipleChoices(),
             TextField::new('plainPassword')->onlyOnForms(),
-            AssociationField::new('cars')
-                ->setFormTypeOptions([
-                'by_reference' => false,
-            ]),
+//            AssociationField::new('cars')
+//                ->setFormTypeOptions([
+//                'by_reference' => false,
+//            ]),
         ];
     }
 }

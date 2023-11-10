@@ -22,7 +22,7 @@ class OpinionsCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('users')->setLabel('Staff'),
+//            AssociationField::new('users')->setLabel('Staff'),
             IdField::new('id')->hideOnForm()->hideOnIndex(),
 
             TextField::new('name')->setLabel('Nom'),
@@ -34,4 +34,3 @@ class OpinionsCrudController extends AbstractCrudController
         ];
     }
 }
-// TODO: Voir à inclure le garage

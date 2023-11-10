@@ -74,5 +74,3 @@ function Service() {
 
 
 export default Service;
-
-// TODO : margin card

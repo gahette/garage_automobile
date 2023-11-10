@@ -1,17 +1,32 @@
 import {usePaginatedFetch} from "./hooks";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import StarRating from "reactjs-star-rating";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from "react-responsive-carousel";
 
+
+const dateFormat = {
+  dateStyle: 'medium',
+  timeStyle: 'short',
+}
+
 function Opinion() {
     const {items: opinions, load, loading} = usePaginatedFetch
-    ('/api/opinions')
+    ('/api/opinions');
+    const [approvedOpinions, setApprovedOpinions] = useState([]);
+    const [carouselAutoplay, setCarouselAutoplay] = useState(true);
 
     useEffect(() => {
-            load()
+            load();
+            setCarouselAutoplay(true);
         },
-        [])
+      [])
+
+    useEffect(() => {
+        const filteredOpinions = opinions.filter(opinion => opinion.isApproved);
+        setApprovedOpinions(filteredOpinions);
+    }, [opinions]);
+
     return (
         <>
             {loading && 'Chargement...'}
@@ -20,14 +35,14 @@ function Opinion() {
                 <div>
                     <Carousel
                         interval={3000}
-                        autoPlay={true}
+                        autoPlay={carouselAutoplay}
                         infiniteLoop
                         showIndicators={false}
                         showStatus={false}
                         showArrows={true}
                         showThumbs={false}
                     >
-                        {opinions.map((slide, index) => (
+      {approvedOpinions.map((slide, index) => (
                             <div key={index}>
                                 <div className="flex flex-row gap-5">
                                     <div className="flex-column">
@@ -41,7 +56,7 @@ function Opinion() {
                                             showLabel={false} // Show label
                                         />
                                         <div
-                                            className="ml-6 text-base text-slate-600 font-medium font-Barlow">{slide.createdAt}
+                                            className="ml-6 text-base text-slate-600 font-medium font-Barlow">{(new Date(slide.createdAt)).toLocaleString(undefined, dateFormat)}
                                         </div>
                                     </div>
                                     <div

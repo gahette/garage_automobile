@@ -21,10 +21,10 @@ class OpinionsFixtures extends AbstractFixtures implements DependentFixtureInter
         foreach ($users as $user) {
             $opinions = new Opinions();
             $opinions
-                ->setUsers($user)
+//                ->setUsers($user)
                 ->setMark(mark: $this->faker->numberBetween(0, 5))
                 ->setName(name: $this->faker->name)
-                ->setSlug(slug: $this->faker->slug)
+//                ->setSlug(slug: $this->faker->slug)
                 ->setContent(content: $this->faker->realText(10))
                 ->setIsApproved(is_approved: $this->faker->boolean(65))
                 ->setUpdatedAt(updatedAt: $this->faker->dateTime());

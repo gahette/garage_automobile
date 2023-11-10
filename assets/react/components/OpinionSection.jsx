@@ -11,7 +11,7 @@ function OpinionSection() {
             </div>
             <Opinion/>
             <div className="lg:space-y-1 md:space-y-2 text-center my-auto">
-                <a href={"#"}
+                <a href={"/opinions"}
                    className="font-Barlow font-bold lg:text-base md:text-sm text-red-600 px-6 inline-block py-5 w-full sm:w-fit rounded-md border border-red-600 bg-slate-200 hover:bg-slate-600 hover:text-white mx-auto">
                     Écrire un commentaire <FontAwesomeIcon icon={faArrowRight}/>
                 </a>

@@ -18,7 +18,7 @@ class UsersFixtures extends AbstractFixtures
             $user = new Users();
             $user->setEmail($this->faker->email());
             if (1 === $i) {
-                $user->setRoles(['ROLE_ADMIN']);
+                $user->setRoles(['ROLE_ADMIN', 'ROLE_EMPLOYEES']);
             } else {
                 $user->setRoles(['ROLE_EMPLOYEES']);
             }
