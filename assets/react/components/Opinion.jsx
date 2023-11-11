@@ -33,7 +33,7 @@ function Opinion() {
                 <div>
                     {approvedOpinions.length > 0 && (
                         <Carousel
-                            interval={3000}
+                            interval={2000}
                             autoPlay={true}
                             infiniteLoop
                             showIndicators={false}

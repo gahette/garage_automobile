@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPaperPlane} from "@fortawesome/free-regular-svg-icons";
 import {useForm} from "react-hook-form";
@@ -6,14 +6,11 @@ import {yupResolver} from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import {useFetch} from "./hooks";
 import {Navigate} from "react-router-dom";
-import {faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
+import InputField from "./InputField";
+import TextareaField from "./TextareaField";
 
-const wait = function (duration = 1000) {
-    return new Promise((resolve) => {
-        window.setTimeout(resolve, duration)
-    })
-}
 
+// Schéma de validation Yup pour le formulaire
 const schema = yup
     .object({
         content: yup
@@ -38,7 +35,7 @@ const schema = yup
     .required()
 
 function OpinionForm() {
-
+// Initialisation du hook useForm pour gérer le formulaire
     const {
         register,
         formState: {errors, isSubmitSuccessful},
@@ -47,13 +44,19 @@ function OpinionForm() {
         mode: "onTouched",
         resolver: yupResolver(schema),
     });
+
+    // Utilisation du hook useFetch pour effectuer une requête POST vers /api/opinions
     const {loading, errors: fetchErrors, load} = useFetch('/api/opinions', 'POST', (response) => {
         if (response) {
             console.log('Réponse de l\'API :', response);
-            // Effectuer des actions après la soumission réussie du formulaire
         }
     });
 
+    // Hooks d'état pour gérer la redirection et l'affichage du message de succès
+    const [redirect, setRedirect] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+
+    // Fonction appelée lors de la soumission du formulaire
     const onSubmit = async (data) => {
         const formData = {
             ...data,
@@ -61,20 +64,24 @@ function OpinionForm() {
 
         };
         try {
-            await wait(2000);
-            await load(formData); // Envoi des données du formulaire à l'API via useFetch hook
+            // Envoi des données du formulaire à l'API
+            await load(formData);
+            // Affichage du message de succès
+            setShowSuccessMessage(true);
+            // Redirection vers la page d'accueil après un délai de 2 secondes
+            setTimeout(() => {
+                setRedirect(true);
+            }, 2000);
         } catch (error) {
             console.error('Erreur lors de l\'envoi du formulaire :', error);
         }
     };
 
-    if (isSubmitSuccessful) {
-        console.log("Redirection ok !")
+// Si la redirection est activée et la soumission est réussie, effectuer la redirection
+    if (redirect && isSubmitSuccessful) {
+        console.log("Performing redirect...");
         return <Navigate to="/"/>;
     }
-
-// console.log(schema)
-    console.log(errors)
 
     return (
         <section className="bg-slate-200">
@@ -87,83 +94,55 @@ function OpinionForm() {
                 </div>
 
                 <div className="flex flex-col items-center justify-center mt-24">
-                    {isSubmitSuccessful && <div
-                        className="mb-4 font-medium font-Barlow text-slate-400 text-center border rounded-lg bg-green-200 p-2.5">Merci
-                        pour votre témoignage !</div>}
                     <form onSubmit={handleSubmit(onSubmit)}>
 
                         <div className="flex-column sm:gap-6">
 
-                            <div className="sm:col-span-2">
-                                <label
-                                    htmlFor="name"
-                                    className="block text-sm font-medium font-Barlow text-slate-600">
-                                    Nom ou pseudo
-                                </label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    {...register("name")}
-                                    aria-invalid={errors.name ? "true" : "false"}
-                                    className="bg-gray-50 border border-slate-600 text-slate-600 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-auto p-2.5 mb-2"
-                                    placeholder="John Doe"
-                                />
-                                {errors.name &&
-                                    <p className="font-medium font-Barlow text-red-600" role="alert"><FontAwesomeIcon
-                                        icon={faTriangleExclamation}/> {errors.name.message}</p>}
-                            </div>
-                            <div className="sm:col-span-2">
-                                <label
-                                    htmlFor="mark"
-                                    className="block text-sm font-medium font-Barlow text-slate-600">
-                                    Note de 0 à 5
-                                </label>
-                                <input
-                                    type="number"
-                                    name="mark"
-                                    {...register("mark")}
-                                    id="mark"
-                                    min="0"
-                                    max="5"
-                                    className="bg-gray-50 border border-slate-600 text-slate-600 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-auto p-2.5 mb-2"
-                                    placeholder="5"
-                                />
-                                {errors.mark &&
-                                    <p className="font-medium font-Barlow text-red-600" role="alert"><FontAwesomeIcon
-                                        icon={faTriangleExclamation}/> {errors.mark.message}</p>}
-                            </div>
+                            <InputField
+                                label="Nom ou pseudo"
+                                name="name"
+                                type="text"
+                                register={register}
+                                errors={errors}
+                                placeholder="John Doe"
+                            />
+                            <InputField
+                                label="Note de 0 à 5"
+                                name="mark"
+                                type="number"
+                                register={register}
+                                errors={errors}
+                                placeholder="5"
+                            />
 
-                            <div className="sm:col-span-2">
-                                <label
-                                    htmlFor={name}
-                                    className="block text-sm font-medium font-Barlow text-slate-600">
-                                    Votre témoignage
-                                </label>
-                                <textarea
-                                    id="content"
-                                    name="content"
-                                    {...register("content")}
-                                    rows="8"
-                                    className="block p-2.5 w-full text-sm text-slate-600 bg-gray-50 rounded-lg border border-slate-600 focus:ring-primary-600 focus:border-primary-600"
-                                    placeholder="Laisser votre commentaire ici ..."
-                                />
-                                {errors.content &&
-                                    <p className="font-medium font-Barlow text-red-600" role="alert"><FontAwesomeIcon
-                                        icon={faTriangleExclamation}/> {errors.content.message}</p>}
-                                <div>Les commentaires non conformes à notre code de conduite seront modérés.</div>
-                            </div>
+
+                            <TextareaField
+                                label="Votre témoignage"
+                                name="content"
+                                register={register}
+                                errors={errors}
+                                placeholder="Laisser votre commentaire ici ..."
+                            />
+                            <div>Les commentaires non conformes à notre code de conduite seront modérés.</div>
+
 
                             <input
                                 type="hidden"
-                                id="is_approved"
-                                name="is_approved"
+                                id="isApproved"
+                                name="isApproved"
                                 {...register("isApproved")}
                                 defaultValue={0}
-
-
                             />
+
                         </div>
+                        {showSuccessMessage && (
+                            <div
+                                className="mb-4 font-medium font-Barlow text-slate-400 text-center border rounded-lg bg-green-200 p-2.5">
+                                Merci pour votre témoignage !
+                            </div>
+                        )}
+                        {fetchErrors && <p>Erreur lors de l'envoi : {fetchErrors.message}</p>}
+
                         <button
                             type="submit"
                             disabled={loading}
@@ -174,7 +153,8 @@ function OpinionForm() {
                 </div>
             </div>
         </section>
-    );
+    )
+        ;
 }
 
 export default OpinionForm;

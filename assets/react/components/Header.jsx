@@ -14,7 +14,7 @@ const navLinks = [
     },
     {
         title: 'Vente de véhicules d\'occasion',
-        id: '/sell',
+        id: '/sales',
     },
     {
         title: 'Équipe & expertise',
