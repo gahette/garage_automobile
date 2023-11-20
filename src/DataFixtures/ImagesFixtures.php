@@ -23,7 +23,7 @@ class ImagesFixtures extends AbstractFixtures implements DependentFixtureInterfa
         // On construit le chemin de destination des images.
         // En l'état, je n'arrive pas à demander à VichUploader de le faire
         // et suis obligé de le faire "à la main".
-        $destination = __DIR__.'/../../public/images/';
+        $destination = __DIR__.'/../../public/api/images/';
         // On va se servir du composant "Filesystem" de Symfony pour copier les images depuis le dossier var/
         // vers leur destination finale.
         $filesystem = new Filesystem();

@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 async function jsonLdFetch(url, method = "GET", data = null) {
     const params = {
@@ -22,31 +22,74 @@ async function jsonLdFetch(url, method = "GET", data = null) {
     }
 }
 
+
 export function usePaginatedFetch(url) {
     const [loading, setLoading] = useState(false)
     const [items, setItems] = useState([])
     const [count, setCount] = useState(0)
     const [next, setNext] = useState(null)
-    const load = useCallback(async function () {
+    const [previous, setPrevious] = useState(null)
+    const load = async () => {
         setLoading(true)
         try {
             const response = await jsonLdFetch(next || url)
-            setItems([...response['hydra:member']])
+
+            setItems(response['hydra:member']);
+
             setCount(response['hydra:totalItems'])
+
             if (response['hydra:view'] && response['hydra:view']['hydra:next']) {
                 setNext(response['hydra:view']['hydra:next'])
             } else {
                 setNext(null)
             }
+
+            if (response['hydra:view'] && response['hydra:view']['hydra:previous']) {
+                setPrevious(response['hydra:view']['hydra:previous'])
+            } else {
+                setPrevious(null)
+            }
+
         } catch (error) {
             console.error(error)
+        } finally {
+            setLoading(false);
         }
-        setLoading(false)
-    }, [url, next])
+    };
+
     return {
-        items, load, count, loading, hasMore: next !== null
+        items, load, count, loading, hasMore: next !== null, hasLess: previous !== null
     }
 }
+
+
+const fetchImagePath = async (imageId) => {
+    // À adapter en fonction de votre logique réelle
+    const response = await fetch(`/api/images/${imageId}`);
+    const data = await response.json();
+    return data.path;
+};
+
+export const useImagePath = (imageId) => {
+    const [imagePath, setImagePath] = useState(null);
+
+    useEffect(() => {
+        const getImagePath = async () => {
+            try {
+                const path = await fetchImagePath(imageId);
+                setImagePath(path);
+            } catch (error) {
+                console.error('Error fetching image path:', error);
+            }
+        };
+
+        if (imageId) {
+            getImagePath();
+        }
+    }, [imageId]);
+
+    return imagePath;
+};
 
 export function useFetch(url, method = "POST", callback = null) {
     const [errors, setErrors] = useState({});
@@ -60,16 +103,16 @@ export function useFetch(url, method = "POST", callback = null) {
                 callback(response)
             }
         } catch (error) {
-            if (error.violations){
-            setErrors(error.violations.reduce((acc, violation) => {
-                acc[violation.propertyPath] = violation.message
-                return acc
-            }, {}));
-        } else {
-            console.error("Error violations not found:", error);
+            if (error.violations) {
+                setErrors(error.violations.reduce((acc, violation) => {
+                    acc[violation.propertyPath] = violation.message
+                    return acc
+                }, {}));
+            } else {
+                console.error("Error violations not found:", error);
             }
         }
-        setLoading(true)
+        setLoading(false)
     }, [url, method, callback]);
     return {
         loading, errors, load

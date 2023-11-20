@@ -29,8 +29,8 @@
 ###< friendsofphp/php-cs-fixer ###
 
 ###> Images ###
-public/images/*
-!public/images/.gitignore
+public/api/images/*
+!public/api/images/.gitignore
 !/var/images
 ###< Images ###
 

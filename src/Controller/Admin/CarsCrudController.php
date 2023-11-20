@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -26,7 +27,7 @@ class CarsCrudController extends AbstractCrudController
             AssociationField::new('garage'),
             IdField::new('id')->hideOnForm(),
             TextField::new('name')->setLabel('Ref'),
-            TextField::new('slug'),
+            SlugField::new('slug')->setTargetFieldName('name')->hideOnIndex(),
             TextField::new('brand')->setLabel('Marque'),
             TextField::new('model')->setLabel('Modèle'),
             NumberField::new('kilometer')->setLabel('Kilométrage'),
