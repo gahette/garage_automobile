@@ -136,12 +136,17 @@ function OpinionForm() {
 
                         </div>
                         {showSuccessMessage && (
-                            <div
-                                className="mb-4 font-medium font-Barlow text-slate-400 text-center border rounded-lg bg-green-200 p-2.5">
+                            <div className="mb-4 font-medium font-Barlow text-slate-400 text-center border rounded-lg bg-green-200 p-2.5">
                                 Merci pour votre témoignage !
                             </div>
                         )}
-                        {fetchErrors && <p>Erreur lors de l'envoi : {fetchErrors.message}</p>}
+
+                        {fetchErrors && (
+                            <div className="mb-4 text-red-600">
+                                {fetchErrors.message}
+                            </div>
+                        )}
+
 
                         <button
                             type="submit"

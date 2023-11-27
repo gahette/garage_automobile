@@ -11,11 +11,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class CarsCrudController extends AbstractCrudController
 {
+
     public static function getEntityFqcn(): string
     {
         return Cars::class;
@@ -25,6 +27,7 @@ class CarsCrudController extends AbstractCrudController
     {
         return [
             AssociationField::new('garage'),
+            AssociationField::new('user'),
             IdField::new('id')->hideOnForm(),
             TextField::new('name')->setLabel('Ref'),
             SlugField::new('slug')->setTargetFieldName('name')->hideOnIndex(),
@@ -32,7 +35,7 @@ class CarsCrudController extends AbstractCrudController
             TextField::new('model')->setLabel('Modèle'),
             NumberField::new('kilometer')->setLabel('Kilométrage'),
             TextField::new('year')->setLabel('Année'),
-            TextEditorField::new('content')->setLabel('Description'),
+            TextareaField::new('content')->setLabel('Description'),
             MoneyField::new('price')->setLabel('Prix')->setCurrency('EUR'),
             CollectionField::new(propertyName: 'images')
                 ->setEntryType(formTypeFqcn: ImageType::class)
