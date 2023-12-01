@@ -14,6 +14,7 @@ use App\Entity\Traits\HasIsApprovedTrait;
 use App\Entity\Traits\HasNameTrait;
 use App\Entity\Traits\HasPriceTrait;
 use App\Repository\ServicesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -39,6 +40,11 @@ class Services
     #[ORM\ManyToOne(inversedBy: 'hasServices')]
     #[Groups(['get'])]
     private ?Garage $garage = null;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getCategory(): ?string
     {

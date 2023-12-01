@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-// use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -38,7 +37,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUse
     use HasLastnameTrait;
     use HasFirstnameTrait;
     use HasEmailTrait;
-
     /**
      * @var array<mixed>
      */
@@ -55,17 +53,17 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUse
     #[ORM\Column]
     private ?string $password = null;
 
-    /**
-     * @var Collection<int, Opinions>
-     */
-    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Opinions::class)]
-    private Collection $hasOpinions;
-
-    /**
-     * @var Collection<int, Messages>
-     */
-    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Messages::class)]
-    private Collection $hasMessages;
+    //    /**
+    //     * @var Collection<int, Opinions>
+    //     */
+    //    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Opinions::class)]
+    //    private Collection $hasOpinions;
+    //
+    //    /**
+    //     * @var Collection<int, Messages>
+    //     */
+    //    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Messages::class)]
+    //    private Collection $hasMessages;
 
     /**
      * @var Collection<int, Cars>
@@ -74,11 +72,19 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUse
     #[Groups(['User:item:get'])]
     private Collection $cars;
 
+    /**
+     * @var Collection<int, Images>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Images::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[Groups(['get'])]
+    private Collection $images;
+
     public function __construct()
     {
-        $this->hasOpinions = new ArrayCollection();
-        $this->hasMessages = new ArrayCollection();
+        //        $this->hasOpinions = new ArrayCollection();
+        //        $this->hasMessages = new ArrayCollection();
         $this->cars = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function setId(?int $id): self
@@ -158,6 +164,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUse
         $this->plainPassword = null;
     }
 
+    /**
+     * @param int          $username
+     * @param array<mixed> $payload
+     */
     public static function createFromPayload($username, array $payload): self
     {
         return (new self())
@@ -167,65 +177,65 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUse
         ;
     }
 
-//    /**
-//     * @return Collection<int, Opinions>
-//     */
-//    public function getHasOpinions(): Collection
-//    {
-//        return $this->hasOpinions;
-//    }
-//
-//    public function addHasOpinion(Opinions $hasOpinion): static
-//    {
-//        if (!$this->hasOpinions->contains($hasOpinion)) {
-//            $this->hasOpinions->add($hasOpinion);
-//            $hasOpinion->setUsers($this);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function removeHasOpinion(Opinions $hasOpinion): static
-//    {
-//        if ($this->hasOpinions->removeElement($hasOpinion)) {
-//            // set the owning side to null (unless already changed)
-//            if ($hasOpinion->getUsers() === $this) {
-//                $hasOpinion->setUsers(null);
-//            }
-//        }
-//
-//        return $this;
-//    }
+    //    /**
+    //     * @return Collection<int, Opinions>
+    //     */
+    //    public function getHasOpinions(): Collection
+    //    {
+    //        return $this->hasOpinions;
+    //    }
+    //
+    //    public function addHasOpinion(Opinions $hasOpinion): static
+    //    {
+    //        if (!$this->hasOpinions->contains($hasOpinion)) {
+    //            $this->hasOpinions->add($hasOpinion);
+    //            $hasOpinion->setUsers($this);
+    //        }
+    //
+    //        return $this;
+    //    }
+    //
+    //    public function removeHasOpinion(Opinions $hasOpinion): static
+    //    {
+    //        if ($this->hasOpinions->removeElement($hasOpinion)) {
+    //            // set the owning side to null (unless already changed)
+    //            if ($hasOpinion->getUsers() === $this) {
+    //                $hasOpinion->setUsers(null);
+    //            }
+    //        }
+    //
+    //        return $this;
+    //    }
 
-    /**
-     * @return Collection<int, Messages>
-     */
-    public function getHasMessages(): Collection
-    {
-        return $this->hasMessages;
-    }
-
-    public function addHasMessage(Messages $hasMessage): static
-    {
-        if (!$this->hasMessages->contains($hasMessage)) {
-            $this->hasMessages->add($hasMessage);
-            $hasMessage->setUsers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHasMessage(Messages $hasMessage): static
-    {
-        if ($this->hasMessages->removeElement($hasMessage)) {
-            // set the owning side to null (unless already changed)
-            if ($hasMessage->getUsers() === $this) {
-                $hasMessage->setUsers(null);
-            }
-        }
-
-        return $this;
-    }
+    //    /**
+    //     * @return Collection<int, Messages>
+    //     */
+    //    public function getHasMessages(): Collection
+    //    {
+    //        return $this->hasMessages;
+    //    }
+    //
+    //    public function addHasMessage(Messages $hasMessage): static
+    //    {
+    //        if (!$this->hasMessages->contains($hasMessage)) {
+    //            $this->hasMessages->add($hasMessage);
+    //            $hasMessage->setUsers($this);
+    //        }
+    //
+    //        return $this;
+    //    }
+    //
+    //    public function removeHasMessage(Messages $hasMessage): static
+    //    {
+    //        if ($this->hasMessages->removeElement($hasMessage)) {
+    //            // set the owning side to null (unless already changed)
+    //            if ($hasMessage->getUsers() === $this) {
+    //                $hasMessage->setUsers(null);
+    //            }
+    //        }
+    //
+    //        return $this;
+    //    }
 
     /**
      * @return Collection<int, Cars>
@@ -260,5 +270,35 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUse
     public function __toString(): string
     {
         return $this->getFirstname().' '.$this->getLastname();
+    }
+
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getUser() === $this) {
+                $image->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

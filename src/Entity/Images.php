@@ -23,12 +23,13 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Delete(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEES')")]
 #[GetCollection]
 #[Post(security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_EMPLOYEES')")]
-class Images
+class Images implements \Serializable
 {
     use HasIdTrait;
     use HasTimestampTrait;
 
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'path', size: 'size')]
+    #[Groups(['get'])]
     private ?File $file = null;
     #[ORM\Column(nullable: true)]
     #[Groups(['get'])]
@@ -39,8 +40,12 @@ class Images
     private ?int $size = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Cars $car = null;
+
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Users $user = null;
 
     public function setFile(File|UploadedFile|null $file): Images
     {
@@ -97,5 +102,54 @@ class Images
     public function __toString(): string
     {
         return (string) $this->getPath();
+    }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize(): ?string
+    {
+        return serialize([
+            $this->id,
+            $this->path,
+        ]);
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($data): void
+    {
+        list(
+            $this->id,
+            $this->path,
+        ) = unserialize($data, ['allowed_classes' => false]);
+    }
+
+    public function __serialize(): array
+    {
+        return [
+            $this->id,
+            $this->path,
+        ];
+    }
+
+    /**
+     * @param array<mixed> $data
+     */
+    public function __unserialize(array $data): void
+    {
+        list(
+            $this->id,
+            $this->path,
+        ) = $data;
     }
 }

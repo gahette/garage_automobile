@@ -19,6 +19,9 @@ trait HasEmailTrait
         return $this->email;
     }
 
+    /**
+     * @return $this
+     */
     public function setEmail(string $email): static
     {
         $this->email = $email;

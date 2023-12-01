@@ -3,9 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Users;
+use App\Form\ImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -37,6 +39,10 @@ class UsersCrudController extends AbstractCrudController
 //                ->setFormTypeOptions([
 //                'by_reference' => false,
 //            ]),
+            CollectionField::new(propertyName: 'images')
+                ->setEntryType(formTypeFqcn: ImageType::class)
+                ->allowDelete()
+                ->allowAdd(),
         ];
     }
 }

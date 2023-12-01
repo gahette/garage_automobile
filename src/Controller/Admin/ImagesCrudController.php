@@ -23,6 +23,7 @@ class ImagesCrudController extends AbstractCrudController
             IntegerField::new('size')->hideOnForm(),
             VichImageField::new('file')->setLabel('Fichier'),
             AssociationField::new('car'),
+            AssociationField::new('user'),
         ];
     }
 }

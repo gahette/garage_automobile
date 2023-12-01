@@ -26,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Opinions
 {
     use HasIdTrait;
-//    use HasNameTrait;
+    //    use HasNameTrait;
     use HasContentTrait;
 
     //    use HasIsApprovedTrait;
@@ -56,14 +56,14 @@ class Opinions
     #[Groups(['get'])]
     private ?int $mark = null;
 
-//    #[ORM\ManyToOne(inversedBy: 'hasOpinions')]
-//    #[Groups(['get'])]
-//    private ?Users $users = null;
+    //    #[ORM\ManyToOne(inversedBy: 'hasOpinions')]
+    //    #[Groups(['get'])]
+    //    private ?Users $users = null;
 
     public function IsIsApproved(): ?bool
     {
-                return $this->is_approved;
-//        return (null === $this->users) ? false : $this->is_approved;
+        return $this->is_approved;
+        //        return (null === $this->users) ? false : $this->is_approved;
     }
 
     public function setIsApproved(bool $is_approved): static
@@ -85,15 +85,15 @@ class Opinions
         return $this;
     }
 
-//    public function getUsers(): ?Users
-//    {
-//        return $this->users;
-//    }
-//
-//    public function setUsers(?Users $users): static
-//    {
-//        $this->users = $users;
-//
-//        return $this;
-//    }
+    //    public function getUsers(): ?Users
+    //    {
+    //        return $this->users;
+    //    }
+    //
+    //    public function setUsers(?Users $users): static
+    //    {
+    //        $this->users = $users;
+    //
+    //        return $this;
+    //    }
 }
