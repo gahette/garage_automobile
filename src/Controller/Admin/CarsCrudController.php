@@ -26,15 +26,26 @@ class CarsCrudController extends AbstractCrudController
         return [
             AssociationField::new('garage'),
             AssociationField::new('user'),
-            IdField::new('id')->hideOnForm(),
-            TextField::new('name')->setLabel('Ref'),
-            SlugField::new('slug')->setTargetFieldName('name')->hideOnIndex(),
-            TextField::new('brand')->setLabel('Marque'),
-            TextField::new('model')->setLabel('Modèle'),
-            NumberField::new('kilometer')->setLabel('Kilométrage'),
-            TextField::new('year')->setLabel('Année'),
-            TextareaField::new('content')->setLabel('Description'),
-            MoneyField::new('price')->setLabel('Prix')->setCurrency('EUR'),
+            IdField::new('id')
+                ->hideOnForm(),
+            TextField::new('name')
+                ->setLabel('Ref'),
+            SlugField::new('slug')
+                ->setTargetFieldName('name')
+                ->hideOnIndex(),
+            TextField::new('brand')
+                ->setLabel('Marque'),
+            TextField::new('model')
+                ->setLabel('Modèle'),
+            NumberField::new('kilometer')
+                ->setLabel('Kilométrage'),
+            TextField::new('year')
+                ->setLabel('Année'),
+            TextareaField::new('content')
+                ->setLabel('Description'),
+            MoneyField::new('price')
+                ->setLabel('Prix')
+                ->setCurrency('EUR'),
             CollectionField::new(propertyName: 'images')
                 ->setEntryType(formTypeFqcn: ImageType::class)
                 ->allowDelete()

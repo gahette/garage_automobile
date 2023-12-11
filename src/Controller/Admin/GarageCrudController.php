@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Garage;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -27,6 +28,7 @@ class GarageCrudController extends AbstractCrudController
             IntegerField::new('zipCode')->setLabel('Code postal'),
             TextField::new('city')->setLabel('Ville'),
             TelephoneField::new('phone')->setLabel('Téléphone'),
+            EmailField::new('email'),
         ];
     }
 }

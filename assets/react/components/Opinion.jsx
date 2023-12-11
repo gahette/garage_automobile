@@ -16,9 +16,14 @@ function Opinion() {
     const [approvedOpinions, setApprovedOpinions] = useState([]);
 
     useEffect(() => {
-            load()
+            const fetchData = async () => {
+                await load();
+            };
+            fetchData().then(() => {
+
+            });
         },
-        [])
+        []);
 
     useEffect(() => {
         const filteredOpinions = opinions.filter(opinion => opinion.isApproved);
@@ -55,7 +60,7 @@ function Opinion() {
                                                 showLabel={false} // Show label
                                             />
                                             <div
-                                                className="ml-6 text-base text-slate-600 font-medium font-Barlow">{(new Date(slide.createdAt)).toLocaleString(undefined, dateFormat)}
+                                                className="ml-6 text-base text-slate-600 font-medium font-Barlow">{(new Date(slide["createdAt"])).toLocaleString(undefined, dateFormat)}
                                             </div>
                                         </div>
                                         <div

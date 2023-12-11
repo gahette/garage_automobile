@@ -16,9 +16,14 @@ function OpeningHours(){
     ('/api/opening_hours')
 
     useEffect(() => {
-            load()
+            const fetchData = async () => {
+                await load();
+            };
+            fetchData().then(() => {
+
+            });
         },
-        [])
+        []);
 
     return (
         <>

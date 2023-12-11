@@ -6,22 +6,28 @@ import Modal from "./Modal";
 import ContactModal from "./ContactModal";
 import ContactForm from "./ContactForm";
 
-const Sale = () => {
+function Sale(){
     const {items: cars, load, hasMore, hasLess, loading} = usePaginatedFetch('/api/cars');
 
     useEffect(() => {
-        load(); // Charger les premières voitures lorsque le composant est monté
-    }, []);
+            const fetchData = async () => {
+                await load();
+            };
+            fetchData().then(() => {
 
-    const loadMore = () => {
+            });
+        },
+        []);
+
+    const loadMore = async () => {
         if (hasMore) {
-            load(); // Charger plus de voitures lorsque le bouton "Load More" est cliqué
+            await load(); // Charger plus de voitures lorsque le bouton "Load More" est cliqué
         }
     };
 
-    const loadLess = () => {
+    const loadLess = async () => {
         if (hasLess) {
-            load();
+            await load();
         }
     }
 
@@ -49,7 +55,7 @@ const Sale = () => {
             </button>)}
         </div>
     </div>);
-};
+}
 
 const CarItem = ({car}) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -137,7 +143,7 @@ const CarItem = ({car}) => {
                 <ul className="mt-6">
                     <li className="font-Barlow font-medium text-base text-slate-600 text-center">Marque: {car.brand}</li>
                     <li className="font-Barlow font-medium text-base text-slate-600 text-center">Modèle: {car.model}</li>
-                    <li className="font-Barlow font-medium text-base text-slate-600 text-center">Kilométrage: {car.kilometer}</li>
+                    <li className="font-Barlow font-medium text-base text-slate-600 text-center">Kilométrage: {car["kilometer"]}</li>
                     <li className="font-Barlow font-medium text-base text-slate-600 text-center">Année: {car.year}</li>
                 </ul>
 
@@ -155,7 +161,7 @@ const CarItem = ({car}) => {
                                     <li className="font-Barlow font-semibold text-base text-slate-600">Modèle: <p
                                         className="font-normal">{car.model}</p></li>
                                     <li className="font-Barlow font-semibold text-base text-slate-600">Kilométrage: <p
-                                        className="font-normal">{car.kilometer}</p></li>
+                                        className="font-normal">{car["kilometer"]}</p></li>
                                     <li className="font-Barlow font-semibold text-base text-slate-600">Année: <p
                                         className="font-normal">{car.year}</p></li>
                                     <li className="font-Barlow font-semibold text-base text-slate-600 overflow-auto whitespace-pre-line">Description: <p

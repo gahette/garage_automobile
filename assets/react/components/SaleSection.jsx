@@ -1,5 +1,4 @@
 import React from "react";
-import Service from "./Service";
 import Sale from "./Sale";
 
 function SaleSection() {

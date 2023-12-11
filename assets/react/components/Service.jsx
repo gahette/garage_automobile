@@ -16,7 +16,7 @@ function Service() {
         "PNEUMATIQUE & tenue de route": tyre,
         "FREINAGE & sécurité": brake,
         "MÉCANIQUE & diagnostics": engine,
-        "ENTRETION & révision": entretien,
+        "ENTRETIEN & révision": entretien,
         "ÉLECTRIQUE & hybride": electrique,
     }
 
@@ -32,7 +32,7 @@ function Service() {
                 if (!acc[category]) {
                     acc[category] = [];
                 }
-                if (service.is_approved === true) {
+                if (service["is_approved"] === true) {
                     acc[category].push(service.name);
                 }
                 return acc;

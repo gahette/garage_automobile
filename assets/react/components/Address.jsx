@@ -2,7 +2,7 @@ import {usePaginatedFetch} from "./hooks";
 import React, {useEffect} from "react";
 
 
-const GaragesArea = React.memo(({garagesArea: {name, address, zip_code, city, phone, email}}) => {
+const GaragesArea = React.memo(({garagesArea: {address, zip_code, city, phone, email}}) => {
         return <div>
                 <p>Par téléphone : {phone}</p>
                 <p>Par email : {email}</p>
@@ -17,9 +17,14 @@ function Address(){
     ('/api/garages')
 
     useEffect(() => {
-            load()
+            const fetchData = async () => {
+                await load();
+            };
+            fetchData().then(() => {
+
+            });
         },
-        [])
+        []);
 
     return (
         <>
@@ -31,5 +36,3 @@ function Address(){
 }
 
 export default Address
-
-// TODO: mettre email dans bdd garage ????

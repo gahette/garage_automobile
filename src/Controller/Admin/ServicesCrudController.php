@@ -3,10 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Services;
-use App\Form\ImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -24,13 +24,29 @@ class ServicesCrudController extends AbstractCrudController
     {
         return [
             AssociationField::new('garage'),
-            IdField::new('id')->hideOnForm(),
-            TextField::new('category')->setLabel('Catégorie'),
-            TextField::new('name')->setLabel('Nom'),
-            SlugField::new('slug')->setTargetFieldName('name')->hideOnIndex(),
-            TextareaField::new('content')->setLabel('Description'),
-            BooleanField::new('isApproved')->setLabel('Activé/Désactivé'),
-            MoneyField::new('price')->setLabel('Tarif')->setCurrency('EUR'),
+            IdField::new('id')
+                ->hideOnForm(),
+            ChoiceField::new('category')
+                ->setLabel('Catégorie')
+                ->setChoices([
+                    'PNEUMATIQUE & tenue de route' => 'PNEUMATIQUE & tenue de route',
+                    'FREINAGE & sécurité' => 'FREINAGE & sécurité',
+                    'MÉCANIQUE & diagnostics' => 'MÉCANIQUE & diagnostics',
+                    'ENTRETIEN & révision' => 'ENTRETIEN & révision',
+                    'ÉLECTRIQUE & hybride' => 'ÉLECTRIQUE & hybride',
+                ]),
+            TextField::new('name')
+                ->setLabel('Nom'),
+            SlugField::new('slug')
+                ->setTargetFieldName('name')
+                ->hideOnIndex(),
+            TextareaField::new('content')
+                ->setLabel('Description'),
+            BooleanField::new('isApproved')
+                ->setLabel('Activé/Désactivé'),
+            MoneyField::new('price')
+                ->setLabel('Tarif')
+                ->setCurrency('EUR'),
         ];
     }
 }

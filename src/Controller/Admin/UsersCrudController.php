@@ -5,11 +5,11 @@ namespace App\Controller\Admin;
 use App\Entity\Users;
 use App\Form\ImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class UsersCrudController extends AbstractCrudController
@@ -43,6 +43,8 @@ class UsersCrudController extends AbstractCrudController
                 ->setEntryType(formTypeFqcn: ImageType::class)
                 ->allowDelete()
                 ->allowAdd(),
+            TextareaField::new('content')
+                ->setLabel('Description'),
         ];
     }
 }

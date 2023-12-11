@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import logo from '../logo/logo-transparent.png';
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/solid";
 
@@ -117,7 +117,7 @@ function Header() {
                             </a>
                             <a href={""}
                                className="font-Barlow font-bold lg:text-base md:text-sm text-white bg-red-600 px-5 inline-block py-3 w-full sm:w-fit rounded-md border border-red-600 hover:bg-slate-400 hover:text-red-600">
-                                Déconnection
+                                Déconnexion
                             </a>
                         </div>
 

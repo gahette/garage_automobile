@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Entity\Traits\HasContentTrait;
 use App\Entity\Traits\HasEmailTrait;
 use App\Entity\Traits\HasFirstnameTrait;
 use App\Entity\Traits\HasIdTrait;
@@ -29,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[get(security: "is_granted('ROLE_ADMIN') or object == user")]
 #[Patch(security: "is_granted('ROLE_ADMIN')")]
 #[Delete(security: "is_granted('ROLE_ADMIN')")]
-#[GetCollection(security: "is_granted('ROLE_ADMIN')")]
+#[GetCollection]
 #[Post(security: "is_granted('ROLE_ADMIN')")]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUserInterface
 {
@@ -37,6 +38,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUse
     use HasLastnameTrait;
     use HasFirstnameTrait;
     use HasEmailTrait;
+    use HasContentTrait;
     /**
      * @var array<mixed>
      */
