@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Opinions from "./pages/Opinions";
 import Sales from "./pages/Sales";
 import Teams from "./pages/Teams";
+import Contacts from "./pages/Contacts";
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
                         <Route path="/sales" element={<Sales/>}/>
                         <Route path="/opinions" element={<Opinions/>}/>
                         <Route path="/team" element={<Teams/>}/>
+                        <Route path="/contact" element={<Contacts/>}/>
                         <Route path="*" element={<Home/>}/>
                         <Route path="/connexion" action="/connexion"/>
                         {/*<Route path="/mentionslegales" element={<Legacy/>}/>*/}

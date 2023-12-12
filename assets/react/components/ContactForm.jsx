@@ -80,8 +80,8 @@ function ContactForm({carId, car, user, handleClose}) {
     return (
 
         <div>
-            <h2>{carId}</h2>
-            <h2>{car.name}</h2>
+            {/*<h2>{carId}</h2>*/}
+            <h2>Ref : {car.name}</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <div className="flex-column sm:gap-6">
