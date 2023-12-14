@@ -24,10 +24,6 @@ const navLinks = [
         title: 'Contact',
         id: '/contact',
     },
-    {
-        title: 'Prendre rendez-vous',
-        id: '/rdv',
-    },
 ]
 
 

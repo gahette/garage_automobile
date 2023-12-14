@@ -19,7 +19,7 @@ function TeamSection() {
                     <Team/>
                 </div>
                 <div className="lg:space-y-1 md:space-y-2 text-center my-auto">
-                    <a href={"/rdv"}
+                    <a href={"/contact"}
                        className="font-Barlow font-bold lg:text-base md:text-sm text-red-600 px-6 inline-block py-5 w-full sm:w-fit rounded-md border border-red-600 hover:bg-slate-400 hover:text-white mx-auto">
                         Prendre rendez-vous <FontAwesomeIcon icon={faArrowRight}/>
                     </a>

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import logo from "../logo/logo-transparent.png";
-import {usePaginatedFetch} from "./hooks";
 import OpeningHours from "./OpeningHours";
 import Address from "./Address";
 
