@@ -28,9 +28,14 @@ function Service() {
     const [selectedService, setSelectedService] = useState(null);
 
     useEffect(() => {
-            load()
+            const fetchData = async () => {
+                await load();
+            };
+            fetchData().then(() => {
+
+            });
         },
-        [])
+        []);
 
     useEffect(() => {
         if (services.length > 0) {
@@ -91,12 +96,12 @@ function Service() {
 
                 {selectedService && (
                     <>
-                        <h2>{selectedService.name}</h2>
+                        <h2 className="font-Barlow font-semibold text-base text-slate-600">{selectedService.name}</h2>
                         <p>{selectedService.content}</p>
                     </>
                 )}
 
-                <div className="lg:space-y-1 md:space-y-2 text-center my-auto">
+                <div className="lg:space-y-1 md:space-y-2 text-center my-auto mt-10">
                     <a href={"/contact"}
                        className="font-Barlow font-bold lg:text-base md:text-sm text-red-600 px-6 inline-block py-5 w-full sm:w-fit rounded-md border border-red-600 hover:bg-slate-400 hover:text-white mx-auto">
                         Prendre rendez-vous <FontAwesomeIcon icon={faArrowRight}/>

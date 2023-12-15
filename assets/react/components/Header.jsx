@@ -111,7 +111,7 @@ function Header() {
                                className="font-Barlow font-bold lg:text-base md:text-sm text-red-600 px-5 inline-block py-3 w-full sm:w-fit rounded-md border border-red-600 hover:bg-slate-400 hover:text-white mx-4">
                                 Connexion
                             </a>
-                            <a href={""}
+                            <a href={"/deconnexion"}
                                className="font-Barlow font-bold lg:text-base md:text-sm text-white bg-red-600 px-5 inline-block py-3 w-full sm:w-fit rounded-md border border-red-600 hover:bg-slate-400 hover:text-red-600">
                                 Déconnexion
                             </a>

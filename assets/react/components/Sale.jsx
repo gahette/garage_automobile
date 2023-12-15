@@ -77,7 +77,9 @@ const CarItem = ({car}) => {
         setContactModalOpen(true);
     };
 
-    return (<ul>
+    return (
+
+        <ul>
 
         <li key={`car_${car.id}`} className="bg-white rounded-lg">
 
@@ -196,9 +198,9 @@ const CarItem = ({car}) => {
 
                         </Modal>
 
-                        <div className="flex justify-between mx-4 gap-4">
+                        <div className="flex justify-between mx-2 gap-1">
                             <button
-                                className="my-4 font-Barlow font-bold lg:text-base md:text-sm text-red-600 px-6 inline-block py-2 w-full sm:w-fit rounded-md border border-red-600 hover:bg-slate-400 hover:text-white"
+                                className="my-4 font-Barlow font-bold lg:text-xs md:text-sm text-red-600 px-6 inline-block py-2 w-full sm:w-fit rounded-md border border-red-600 hover:bg-slate-400 hover:text-white"
                                 type="button"
                                 onClick={handleClick}
                             >
@@ -206,7 +208,7 @@ const CarItem = ({car}) => {
                             </button>
                             <div className="lg:space-y-1 md:space-y-2 text-center my-auto">
                                 <button
-                                    className="font-Barlow font-bold lg:text-base md:text-sm text-red-600 px-6 inline-block py-2 w-full sm:w-fit rounded-md border border-red-600 hover:bg-slate-400 hover:text-white"
+                                    className="font-Barlow font-bold lg:text-xs md:text-sm text-red-600 px-6 inline-block py-2 w-full sm:w-fit rounded-md border border-red-600 hover:bg-slate-400 hover:text-white"
                                     onClick={handleOpenContactModal}
                                 >
                                     Demander un renseignement

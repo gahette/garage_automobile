@@ -6,7 +6,6 @@ import Sales from "./pages/Sales";
 import Teams from "./pages/Teams";
 import Contacts from "./pages/Contacts";
 
-
 const App = () => {
 
     return (
@@ -21,6 +20,7 @@ const App = () => {
                         <Route path="/contact" element={<Contacts/>}/>
                         <Route path="*" element={<Home/>}/>
                         <Route path="/connexion" action="/connexion"/>
+                        <Route path="/accueil" action="/deconnexion"/>
                         {/*<Route path="/mentionslegales" element={<Legacy/>}/>*/}
                     </Routes>
                 </BrowserRouter>

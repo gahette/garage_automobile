@@ -56,8 +56,7 @@ function Contact() {
 
 const {
     register,
-    formState: {errors, isSubmitSuccessful},
-    handleSubmit,
+    formState: {errors},
 } = useForm({
     mode: "onTouched",
     resolver: yupResolver(schema),
